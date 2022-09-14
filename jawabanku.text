@@ -1,0 +1,33 @@
+No. 1
+SELECT cabkor, cabang, unit_kerja
+
+SELECT (SELECT nama
+        FROM   data_nasabah
+        WHERE  id=induk) AS cabkor,
+       (SELECT nama
+        FROM   data_nasabah
+        WHERE  id=induk)   AS cabang
+ORDER  BY cabkor
+
+No. 2
+SELECT (SELECT IdNasabah, KodeCabang, NamaNasabah, TanggalLahir
+        FROM   data_nasabah) AS table_a,
+       (SELECT IF ISDATE('2000-01-01') = 1  
+    PRINT 'True'  
+ELSE  
+    PRINT 'False';) AS table_b
+
+No.3
+SELECT Pekerjaan, (CASE TanggalLahir
+      WHEN 2022-SUBSTR(TanggalLahir, 4)<14 THEN '01'
+      WHEN 2022-SUBSTR(TanggalLahir, 4)>14 AND 2022-SUBSTR(TanggalLahir, 4)<20 THEN '02'
+      WHEN 2022-SUBSTR(TanggalLahir, 4)>21 AND 2022-SUBSTR(TanggalLahir, 4)<25 THEN '03'
+      WHEN 2022-SUBSTR(TanggalLahir, 4)>26 AND 2022-SUBSTR(TanggalLahir, 4)<30 THEN '04'
+      WHEN 2022-SUBSTR(TanggalLahir, 4)>31 AND 2022-SUBSTR(TanggalLahir, 4)<35 THEN '05'
+      WHEN 2022-SUBSTR(TanggalLahir, 4)>36 AND 2022-SUBSTR(TanggalLahir, 4)<40 THEN '06'
+      WHEN 2022-SUBSTR(TanggalLahir, 4)>41 AND 2022-SUBSTR(TanggalLahir, 4)<46 THEN '07'
+      WHEN 2022-SUBSTR(TanggalLahir, 4)>47 AND 2022-SUBSTR(TanggalLahir, 4)<50 THEN '08'
+      WHEN 2022-SUBSTR(TanggalLahir, 4)>51 AND 2022-SUBSTR(TanggalLahir, 4)<55 THEN '09'
+      WHEN 2022-SUBSTR(TanggalLahir, 4)>56 AND 2022-SUBSTR(TanggalLahir, 4)<60 THEN '10'
+      ELSE '11' END) as KelompokUsia, COUNT(KelompokUsia) as total
+FROM data_nasabah GROUP BY Pekerjaan;
